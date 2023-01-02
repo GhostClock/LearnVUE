@@ -1,0 +1,112 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件修饰符</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <style>
+        *{
+            margin-top: 20;
+        }
+        .demo {
+            height: 50px;
+            background-color: aqua;
+        }
+        .box1{
+            padding: 5px;
+            background-color: purple;
+        }
+        .box2{
+            padding: 5px;
+            background-color: rebeccapurple;
+        }
+        .list {
+            width: 200px;
+            height: 200px;
+            background-color: blue;
+            overflow: auto;
+        }
+        li {
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div id="root">
+        <!-- 
+            Vue中得事件修饰符
+                1.prevent: 阻止默认事件 常用
+                2.stop: 阻止事件冒泡 常用
+                3.once: 事件只触发一次 常用
+                4.capture: 使用事件得捕获模式
+                5.self: 只有event.targent是当前得元素时才触发事件
+                6.passive: 事件的默认行为立即执行，无需等待事件回调执行完毕
+         -->
+        <h2>欢迎来到{{name}}</h2>
+
+        <!-- 阻止默认事件 常用-->
+        <a href="https://www.baidu.com" @click.prevent="showInfo">点击我提示信息1</a>
+        
+        <!-- 阻止事件冒泡 常用-->
+        <div class="demo" @click="showInfo">
+            <button @click.stop="showInfo">点击我提示信息2</button>
+            
+            <!-- 修饰符可以连续写 -->
+            <!-- <a href="https://www.baidu.com" @click.prevent.stop="showInfo">点击我提示信息1</a> -->
+        </div>
+
+        <!-- 事件只触发一次 -->
+        <button @click.once="showInfo">点击我提示信息3</button>
+
+        <!-- 使用事件得捕获模式 -->
+        <div class="box1" @click.capture="showMsg(1)">
+            div1
+            <div class="box2" @click="showMsg(2)">
+                div2
+            </div>
+        </div>
+
+        <!-- 只有event.targent是当前得元素时才触发事件 -->
+        <div class="demo" @click.self="showInfo">
+            <button @click="showInfo">点击我提示信息4</button>
+        </div>
+
+        <!-- 事件的默认行为立即执行，无需等待事件回调执行完毕 -->
+        <ul @wheel.passive="demo" class="list">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+
+
+    </div>
+
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+        new Vue({
+             el: "#root",
+             data:{
+                name: "百度"       
+             },
+             methods: {
+                showInfo(event){
+                    // event.perventDefault()
+                    // alert("Hello")
+
+                    console.log(event.target);
+                },
+                showMsg(msg) {
+                    console.log(msg);
+                },
+                demo() {
+                    console.log('@');
+                },
+             }
+        })
+    </script>
+</body>
+</html>
+
