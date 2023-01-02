@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>天气案例</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+
+<body>
+    <!-- 
+        深度监视
+            1.Vue中的watch默认不监视对象内部值得改变
+            2.配置deep:true可以检测对象内部值得改变
+        备注：
+            1.Vue自身可以检测对象内部值得改变，但Vue提供得watch默认不可以
+            2.使用watch时根据数据的具体结构，决定是否采用深度监视
+     -->
+    <div id="root">
+        <h2>今天天气很{{info}}</h2>
+        <button @click="changeWeather">切换天气</button>
+        <hr>
+        <h3>a的值是: {{number.a}}</h3>
+        <button @click="number.a++">点击增加a</button>
+        <hr>
+        <h3>b的值是: {{number.b}}</h3>
+        <button @click="number.b++">点击增加a</button>
+
+    </div>
+
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                isHot: true,
+                number: {
+                    a: 1,
+                    b: 2
+                }
+            },
+            computed: {
+                info() {
+                    return this.isHot ? '炎热' : '凉爽'
+                }
+            },
+            methods: {
+                changeWeather() {
+                    this.isHot = !this.isHot
+                }
+            },
+            watch: {
+                isHot: {
+                    // handler什么时候调用：当isHot发生变化时
+                    handler(newValue, oldValue) {
+                        console.log(newValue + '-' + oldValue);
+                    },
+                    immediate: true,// 初始化时让handler调用一下
+                },
+                // 监视多级结构中，某个属性的变化
+                // 'number.a': {
+                //     handler() {
+                //         console.log("number里面的a被改变了");
+                //     }
+                // },
+
+                // 监视多级结构中，所有属性的变化
+                number: {
+                    deep: true,  // 是否开启深度监视
+                    handler() {
+                        console.log("number改变了");
+                    }
+                }
+            },
+
+        })
+    </script>
+</body>
+
+</html>

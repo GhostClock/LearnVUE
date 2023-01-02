@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>姓名案例-watch实现</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+
+<body>
+    <!-- 
+        computed和watch之间的区别
+            1.computed能完成的功能，watch都可以完成
+            2.watch能完成得功能，computed不一定能完成，例如watch可以进行异步操作
+        两个重要的小原则
+            1.所被Vue管理的函数，最好写成普通函数，这样this的指向才是vm或者组件实例对象
+            2.所有不被Vue所管理的函数（定时器得回调函数，ajax的回调函数等），最好写成剪头函数
+                这样this的指向才是vm或者组件实例对象
+     -->
+    <div id="root">
+        姓：<input type="text" v-model="firstName"> <br /> <br />
+        名：<input type="text" v-model="lastName"> <br /> <br />
+        全名：<span> {{fullName}} </span> <br /> <br />
+    </div>
+
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+
+        new Vue({
+            el: "#root",
+            data: {
+                firstName: "张",
+                lastName: "三",
+                fullName: "张-三"
+            },
+            watch: {
+                firstName(newValue) {
+                    // 很好的开启异步任务
+                    setTimeout(() => { // 必须写剪头函数
+                        this.fullName = newValue + '-' + this.lastName    
+                    }, 2000);
+                    
+                },
+                lastName(newValue){
+                    this.fullName = this.firstName + '-' + newValue
+                }
+            }
+
+        })
+    </script>
+</body>
+
+</html>
