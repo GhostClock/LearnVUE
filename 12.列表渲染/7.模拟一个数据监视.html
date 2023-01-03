@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>7.模拟一个数据监视</title>
+</head>
+
+<body>
+    <div id="root">
+        <h2>网站名称：{{name}}</h2>
+        <h2>网站地址：{{address}}</h2>
+    </div>
+
+    <script type="text/javascript">
+        let data = {
+            name: "百度",
+            address: "北京"
+        }
+        
+        // 创建一个监视一个实例对象，用于监视data中属性得变化
+        const obs = new Observer(data)
+        
+        // 准备一个vm实例对象
+        let vm = {}
+        vm._data = data = obs
+
+        function Observer(obj) {
+            // 汇总对象中所有得属性形成得一个数组
+            const keys = Object.keys(obj)
+            // 遍历
+            keys.forEach((k) => {
+                Object.defineProperty(this, k, {
+                    get() {
+                        return obj[k]
+                    },
+                    set(val) {
+                        console.log(`${k}被改了, 解析模板, 生成虚拟DOM`);
+                        obj[k] = val
+                    }
+                })
+            })
+        }
+
+
+    </script>
+</body>
+
+</html>
