@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script type="text/javascript" src="../js/dayjs.min.js"></script>
+</head>
+<body>
+    <!-- 
+        过滤器：
+            定义：对要显示的数据进行特定格式化后再显示（适用于一些简单逻辑处理）
+            语法：
+                1.注册过滤器：Vue.filter(name, callback) 或者new Vue({filters:{})
+                2.使用过滤器：{{xx | 过滤器}} 或者v-bind:属性 = 'xxx | 过滤器'
+            备注：
+                1.过滤器也可以接受额外参数、多个过滤器也可以串联
+                2.并没有改变原本的数据，是产生新的对应数据
+     -->
+    <div id="root">
+        <h2>显示格式化后的时间</h2>
+        <!-- 计算属性实现 -->
+        <h3>现在是：{{fmtTime}}</h3>
+
+        <!-- method实现 -->
+        <h3>现在是：{{getFmtTime()}}</h3>
+
+        <!-- 过滤器实现 -->
+        <h3>现在是：{{time | timeFmt}}</h3>
+
+        <!-- 过滤器实现 传参 -->
+        <h3>现在是：{{time | timeFmt('YYYY年MM月DD日')}}</h3>
+        
+        <!-- 过滤器实现 传参 串联 -->
+        <h3>现在是：{{time | timeFmt('YYYY年MM月DD日') | mySlice}}</h3>
+
+        <h3 :x="msg | mySlice">百度</h3>
+    </div>
+
+
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+
+        // 全局过滤器
+        Vue.filter('mySlice', function(value) {
+            return value.slice(0, 3)
+        })
+
+        new Vue({
+             el: "#root",
+             data:{
+                time: Date.now(), 
+                msg: "Hello World!!!"
+             },
+             computed:{
+                fmtTime() {
+                    return dayjs(this.time)
+                            .format('YYYY-MM-DD HH:mm:ss')
+                }
+             },
+             methods: {
+                getFmtTime() {
+                    return dayjs(this.time)
+                            .format('YYYY-MM-DD HH:mm:ss')
+                }
+             },
+             // 局部过滤器
+             filters:{
+                timeFmt(value, fmt="YYYY-MM-DD HH:mm:ss") {
+                    console.log(value);
+                    return dayjs(this.time)
+                            .format(fmt)
+                },
+             }
+        })
+    </script>
+</body>
+</html>
