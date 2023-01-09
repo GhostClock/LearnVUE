@@ -1,0 +1,32 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+    <!-- 
+        v-once指令 没有值
+            1.v-once所在节点在初次动态渲染后，就视为静态内容了
+            2.以后数据得改变不会引起v-once所在结构的更新，可以用于优化性能
+     -->
+    <div id="root">
+        <h2 v-once>初始化的number值: {{number}}</h2>
+        <h2>当前的number值: {{number}}</h2>
+        <button @click="number++">++1</button>
+    </div>
+
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+        new Vue({
+             el: "#root",
+             data:{
+                 number:1
+             }
+        })
+    </script>
+</body>
+</html>

