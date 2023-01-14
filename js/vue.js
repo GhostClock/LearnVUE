@@ -363,8 +363,9 @@
       silent: false,
       /**
        * Show production mode tip message on boot?
+       * 直接关闭控制台生产环境提示
        */
-      productionTip: true,
+      productionTip: false,
       /**
        * Whether to enable devtools
        */
