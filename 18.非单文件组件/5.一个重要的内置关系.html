@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>一个重要的内置关系</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <web></web>
+    </div>
+    <!-- 
+        1.一个重要的内置关系：VueComponent.prototype.__proto__ === Vue.prototype
+        2.为什么要有这个关系：让组件实例对象(vc)可以访问到Vue原型上属性、方法 [见图：分析Vue与VueComponent的关系]
+     -->
+</body>
+    <script type="text/javascript">
+        Vue.prototype.x = 100
+        // 定义一个构造函数
+        /* function Demo() {
+            this.a = 1
+            this.b = 2
+        }
+
+        const d = new Demo();
+        console.log(Demo.prototype);    // 显式原型属性
+        console.log(d.__proto__);       // 隐式原型属性
+        // Demo.prototype 和 d.__proto__是一个东西
+        // 程序员通过显式原型属性操作原型对象，追加一个x属性
+        Demo.prototype.x = 99
+
+        // console.log(d.__proto__.x);
+        console.log(d); */
+
+        // 创建组件
+        const web = Vue.extend({
+            template:`
+                <div>
+                    <h2>网站名称：{{name}}</h2>
+                    <h2>网站地址：{{address}}</h2>
+                    <button @click="showX">点击显示X</button>
+                </div>
+            `,
+            data() {
+                return {
+                    name: "百度",
+                    address: "北京"
+                }
+            },
+            methods: {
+                showX() {
+                    // 组件的实例对象(vc)可以访问到Vue原型上的属性和方法
+                    console.log(this.x);
+                }
+            },
+        })
+
+        // 创建VM
+        new Vue({
+             el: "#root",
+             data:{
+                 msg: "你好！！！"
+             },
+             // 注册组件
+             components:{
+                web
+             }
+        })
+        console.log(web.prototype.__proto__ === Vue.prototype);
+
+    </script>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <!-- <app></app> -->
+    </div>
+
+</body>
+<script type="text/javascript">
+    Vue.config.productionTip = false
+
+    // 创建user组件
+    const user = Vue.extend({
+        template: `
+                <div>
+                    <h2>网站名称:{{name}}</h2>
+                    <h2>网站地址:{{age}}</h2>
+                </div>
+            `,
+        data() {
+            return {
+                name: "张三",
+                age: 18
+            }
+        },
+    })
+    // 创建hello组件
+    const hello = {
+        template:`
+            <h1>{{msg}}</h1>
+        `,
+        data() {
+            return {
+                msg: "欢迎来到Google"
+            }
+        },
+    }
+    // 创建web组件
+    const web = Vue.extend({
+        template: `
+                <div>
+                    <h2>网站名称:{{name}}</h2>
+                    <h2>网站地址:{{address}}</h2>
+                    <user></user>
+                </div>
+            `,
+        data() {
+            return {
+                name: "谷歌",
+                address: "美国"
+            }
+        },
+        // 注册组件 局部
+        components: {
+            user
+        }
+    })
+    
+    // 创建app组件
+    const app = Vue.extend({
+        template:`
+            <div>
+                <hello></hello>  
+                <web></web>
+            </div>
+        `,
+        components:{
+            web,hello
+        }
+    })
+    
+    // 创建vm
+    new Vue({
+        el: "#root",
+        // 注册组件 局部
+        components: {
+            app
+        },
+        template: '<app></app>',
+    })
+
+
+</script>
+
+</html>

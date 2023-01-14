@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>基本使用</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+
+    <!-- 
+        Vue中使用组件的三大步骤：
+            1.定义组件（创建组件）
+            2.注册组件
+            3.使用组件（编写组件标签）
+
+        一、如何定义一个组件
+            使用Vue.extend(options)创建，其中options和new Vue(options)时传入的那个options几乎一样，但是有区别
+            区别如下：
+                1.el不要写 --- 最终所有的组件都要经过一个vm的管理，由vm中的el决定服务哪个容器
+                2.data必须写成函数式 --- 避免组件被复用时，数据存在引用关系
+            备注：使用templeta可以配置组件结构
+        二、如何注册组件
+            1.局部注册：使用new Vue的使用传入components选项
+            2.全局注册：使用Vue.component('组件名', 组件)
+        三、编写组件标签
+            <user></user>
+     -->
+
+    <div id="root">
+        <h1>{{msg}}</h1>
+        <hr>
+
+        <!-- 第三步：编写组件标签 -->
+        <web></web>
+        <hr>
+
+        <yonghu></yonghu>
+    </div>
+    <hr>
+
+    <div id="root2">
+        <!-- 使用全局注册的组件 -->
+        <hello></hello>
+    </div>
+
+</body>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+        
+        // 第一步：创建组件
+        // 创建web组件
+        const web = Vue.extend({
+            // el: '#root' 组件定义时一定不要写el配置项，因为最终所有的组件都要被一个vm管理，由vm决定服务于哪个容器
+            data() { // 必须写成函数式
+                return {
+                    webName: '百度',
+                    address: '北京',
+                    type: '局部注册'
+                }
+            },
+            methods: {
+                showName(){
+                    alert(this.webName)
+                }
+            },
+            template:`
+                <div>
+                    <h1>网站名称：{{webName}}</h1>
+                    <h1>网站地址：{{address}}</h1>
+                    <h3>注册类型：{{type}}</h3>
+                    <button @click='showName'>点击提示网站名</button>
+                </div>
+            `
+        })
+        // 创建user组件
+        const user = Vue.extend({
+            data() {
+                return {
+                    userName: '张三',
+                    age: 18,
+                    type: '局部注册'
+                }
+            },
+            template:`
+                <div>
+                    <h1>用户名称：{{userName}}</h1>
+                    <h1>用户年龄：{{age}}</h1>
+                    <h3>注册类型：{{type}}</h3>
+                </div>
+            `
+        })
+
+        const hello = Vue.extend({
+            template:`
+                <div>
+                    <h2>你好！！！{{name}}</h2>
+                    <h3>注册类型：{{type}}</h3>
+                </div>
+            `,
+            data() {
+                return {
+                    name: "Jerry",
+                    type: '全局注册'
+                }
+            },
+        })
+
+        // 第二步: 全局注册组件
+        Vue.component('hello', hello)
+
+        // 创建vm
+        new Vue({
+            el: "#root",
+            data: {
+                msg: "Hello !!!!"
+            },
+            // 第二步：注册组件(局部注册)
+            components:{
+                web,
+                yonghu: user
+            }
+        })
+        
+        new Vue({
+             el: "#root2",
+        })
+   </script>
+</html>
