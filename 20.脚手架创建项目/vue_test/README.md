@@ -101,4 +101,9 @@
         }
     使用插件：Vue.user(xxx)
     
-        
+## 9.scoped样式
+    作用：让样式在局部失效，防止冲突
+        还可以使用less来定义局部样式，需要使用less-loader包
+    写法：<stype scoped>
+
+
