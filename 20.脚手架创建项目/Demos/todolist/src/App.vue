@@ -24,11 +24,7 @@
       components: { MyHeader, MyList, MyFooter },
       data() {
             return {
-                todos: [
-                    {id: '001', title: '吃饭', done: true},
-                    {id: '002', title: '睡觉', done: false},
-                    {id: '003', title: '打豆豆', done: true},
-                ]
+                todos: JSON.parse(localStorage.getItem("todos")) || []
             }
         },
         methods: {
@@ -63,6 +59,15 @@
                 return !todo.done
               })
             }
+        },
+        watch: {
+          // 需要开启深度监视
+          todos: {
+            deep:true,
+            handler(value) {
+              localStorage.setItem("todos", JSON.stringify(value))
+            }
+          }
         }
     };
   </script>

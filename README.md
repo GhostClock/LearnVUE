@@ -138,4 +138,4 @@
         1.SessionStorage存储的内容会随着浏览器窗口关闭而消失
         2.LocalStorage存储的内容需要手动清除才会消失
         3.xxxStorage.getItem('key')如果key对应的value获取不到，那么getItem的返回值是null
-        4.JSON。parse(null)的结果依然是null 
+        4.JSON.parse(null)的结果依然是null 
