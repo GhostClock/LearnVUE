@@ -2,7 +2,14 @@
 <template>
   <li>
     <label>
-      <input type="checkbox" :checked="todo.done"/>
+      <input type="checkbox" 
+        :checked="todo.done" 
+        @change="handleCheck(todo.id)"
+      />
+      <!-- 如下代码也能实现功能，但是不太推荐，因为优点违反规则，因为修改了props -->
+      <!-- <input type="checkbox" 
+        :v-model="todo.done" 
+      /> -->
       <span>{{ todo.title }}</span>
     </label>
     <button class="btn btn-danger" style="display: none">删除</button>
@@ -13,7 +20,13 @@
     export default {
         name: "MyItem",
         // 声明接受todo对象
-        props: ['todo']
+        props: ['todo', 'checkTodo'],
+        methods: {
+          handleCheck(id) {
+            // 通知App组件将对应的done改变状态
+            this.checkTodo(id)
+          }
+        }
     };
 </script>
 
