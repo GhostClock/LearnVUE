@@ -18,6 +18,7 @@
 </script>
     
 <style scoped>
+    /* footer */
     .todo-footer {
         height: 40px;
         line-height: 40px;
