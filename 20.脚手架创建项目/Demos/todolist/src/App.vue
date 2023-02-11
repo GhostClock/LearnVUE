@@ -6,7 +6,10 @@
           :checkTodo="checkTodo" 
           :deleteTodo="deleteTodo"
         />
-        <MyFooter/>
+        <MyFooter :todos="todos" 
+          :checkAllTodo="checkAllTodo"
+          :clearAllTodo="clearAllTodo"
+        />
       </div>
     </div>
   </template>
@@ -46,6 +49,18 @@
             deleteTodo(id) {
               this.todos = this.todos.filter((todo) => {
                 return todo.id !== id
+              })
+            },
+            // 全选，取消全选
+            checkAllTodo(done) {
+              this.todos.forEach((todo) => {
+                todo.done = done
+              })
+            },
+            // 清除所有已完成的todo
+            clearAllTodo() {
+              this.todos = this.todos.filter((todo) => {
+                return !todo.done
               })
             }
         }
