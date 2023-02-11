@@ -1,8 +1,10 @@
 <!-- 中间内容组件 -->
 <template>
     <ul class="todo-main">
-        <MyItem v-for ="todoObj in todos" 
-        :key="todoObj.id" :todo="todoObj"/>
+        <MyItem/> 
+        <MyItem/> 
+        <MyItem/> 
+        <MyItem/> 
     </ul>
 </template>
 
@@ -11,8 +13,7 @@
 
     export default {
         name: "MyList",
-        components: { MyItem },
-        props: ['todos']
+        components: { MyItem }
     }
 </script>
 

@@ -1,8 +1,8 @@
 <template>
     <div class="todu-container">
       <div class="todo-wrap">
-        <MyHeader :addTodo="addTodo"/>
-        <MyList :todos="todos"/>
+        <MyHeader/>
+        <MyList/>
         <MyFooter/>
       </div>
     </div>
@@ -16,22 +16,6 @@
     export default {
       name: "App",
       components: { MyHeader, MyList, MyFooter },
-      data() {
-              return {
-                  todos:[
-                      {id: '001', title: "吃饭", done: true},
-                      {id: '002', title: "抽烟", done: false},
-                      {id: '003', title: "喝酒", done: false},
-                      {id: '004', title: "洗脚", done: true},
-                  ]
-              }
-          },
-      methods:{
-        addTodo(todoObj){
-          console.log("App组件接受到了数据：", todoObj);
-          this.todos.unshift(todoObj)
-        }
-      }
     };
   </script>
   
