@@ -12,7 +12,7 @@
       /> -->
       <span>{{ todo.title }}</span>
     </label>
-    <button class="btn btn-danger" style="display: none">删除</button>
+    <button class="btn btn-danger" @click="handleDelete(todo.id)">删除</button>
   </li>
 </template>
 
@@ -20,11 +20,19 @@
     export default {
         name: "MyItem",
         // 声明接受todo对象
-        props: ['todo', 'checkTodo'],
+        props: ['todo', 'checkTodo', 'deleteTodo'],
         methods: {
+          // 勾选&取消勾选
           handleCheck(id) {
             // 通知App组件将对应的done改变状态
             this.checkTodo(id)
+          },
+          // 删除
+          handleDelete(id) {
+            if(confirm("确定删除吗？？")) {
+              console.log(id);
+              this.deleteTodo(id)
+            }
           }
         }
     };
@@ -59,6 +67,13 @@
   }
   li:last-child {
     border-bottom: none;
+  }
+  li:hover {
+    /* 鼠标悬浮背景色 */
+    background-color: beige;
+  }
+  li:hover button {
+    display: block;
   }
 
 </style>

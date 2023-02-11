@@ -2,7 +2,10 @@
     <div class="todu-container">
       <div class="todo-wrap">
         <MyHeader :addTodo="addTodo"/>
-        <MyList :todos="todos" :checkTodo="checkTodo"/>
+        <MyList :todos="todos" 
+          :checkTodo="checkTodo" 
+          :deleteTodo="deleteTodo"
+        />
         <MyFooter/>
       </div>
     </div>
@@ -38,6 +41,12 @@
                         return
                     }
                 })
+            },
+            // 删除todo
+            deleteTodo(id) {
+              this.todos = this.todos.filter((todo) => {
+                return todo.id !== id
+              })
             }
         }
     };
