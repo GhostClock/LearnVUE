@@ -1,8 +1,9 @@
 
 <template>
-  <div class="website">
-    <h1>网站名称：{{ name }}</h1>
-    <h1>网站地址：{{ address }}</h1>
+  <div class="school">
+    <h2>网站名称：{{ name }}</h2>
+    <h2>网站地址：{{ address }}</h2>
+    <button @click="sendWebSiteName">点击把学校名给App</button>
   </div>
 </template>
 
@@ -15,11 +16,19 @@
                 address: "北京",
             }
         },
+        props: ["getWebSiteName"],
+        methods:{
+          sendWebSiteName() {
+            this.getWebSiteName(this.name)
+          }
+        },
     }
 </script>
 
-<style>
-    .website{
-        background-color: gray;
-    }
+<style scoped>
+  .school {
+    background-color: aqua;
+    padding: 5px;
+    margin-top: 30px;
+  }
 </style>
