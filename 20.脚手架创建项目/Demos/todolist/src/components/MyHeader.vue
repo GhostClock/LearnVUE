@@ -19,7 +19,7 @@ export default {
         title: ''
     }
   },
-  props: ['addTodo'],
+  // props: ['addTodo'],
   methods: {
     add() {
         // 校验数据
@@ -27,7 +27,9 @@ export default {
         // 将用户得输入包装成一个对象
         const todoObj = { id: nanoid(), title: this.title, done: false };
         console.log(todoObj);
-        this.addTodo(todoObj)
+        // this.addTodo(todoObj)
+        // 通知App组件去添加一个todo对象
+        this.$emit("addTodo", todoObj)
         // 清空输入框
         this.title = ''
     },
