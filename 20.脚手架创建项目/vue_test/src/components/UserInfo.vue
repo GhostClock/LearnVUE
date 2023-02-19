@@ -25,12 +25,12 @@
           sendUserInfoName() {
             // 触发UserInfo组件实例身上的userInfoAction事件
             this.$emit('userInfoAction', this.name, 666, 888, 999)
-            this.$emit("demo")
+            // this.$emit("demo")
           },
           unbind() {
-            // this.$off("userInfoAction")// 解绑一个自定义事件
+            this.$off("userInfoAction")// 解绑一个自定义事件
             // this.$off(["userInfoAction", "demo"]) // 解绑多个自定义事件
-            this.$off() //解绑所有自定义事件
+            // this.$off() //解绑所有自定义事件
           },
           death() {
             this.$destroy()// 销毁了当前UserInfo组件的实例，销毁后所有UserInfo实例的自定义事件全都不奏效了
