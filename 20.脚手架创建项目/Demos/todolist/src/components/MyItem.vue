@@ -20,18 +20,20 @@
     export default {
         name: "MyItem",
         // 声明接受todo对象
-        props: ['todo', 'checkTodo', 'deleteTodo'],
+        props: ['todo',],
         methods: {
           // 勾选&取消勾选
           handleCheck(id) {
             // 通知App组件将对应的done改变状态
-            this.checkTodo(id)
+            // this.checkTodo(id)
+            this.$bus.$emit("checkTodo", id)
           },
           // 删除
           handleDelete(id) {
             if(confirm("确定删除吗？？")) {
               console.log(id);
-              this.deleteTodo(id)
+              // this.deleteTodo(id)
+              this.$bus.$emit('deleteTodo', id)
             }
           }
         }
