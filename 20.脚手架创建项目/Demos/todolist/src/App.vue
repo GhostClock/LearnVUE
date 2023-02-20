@@ -13,6 +13,7 @@
   </template>
   
   <script>
+    import pubsub from "pubsub-js";
     import MyHeader from "./components/MyHeader";
     import MyList from "./components/MyList";
     import MyFooter from "./components/MyFooter";
@@ -40,7 +41,7 @@
                 })
             },
             // 删除todo
-            deleteTodo(id) {
+            deleteTodo(_, id) {
               this.todos = this.todos.filter((todo) => {
                 return todo.id !== id
               })
@@ -69,11 +70,13 @@
         },
         mounted() {
           this.$bus.$on("checkTodo", this.checkTodo)
-          this.$bus.$on("deleteTodo", this.deleteTodo)
+          // this.$bus.$on("deleteTodo", this.deleteTodo)
+          this.pubId = pubsub.subscribe('deleteTodo', this.deleteTodo)
         },
         beforeDestroy() {
           this.$bus.$off("checkTodo")
-          this.$bus.$off("deleteTodo")
+          // this.$bus.$off("deleteTodo")
+          pubsub.unsubscribe(this.pubId)
         },
     };
   </script>
