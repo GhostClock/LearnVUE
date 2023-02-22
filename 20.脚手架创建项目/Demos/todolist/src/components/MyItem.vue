@@ -10,9 +10,20 @@
       <!-- <input type="checkbox" 
         :v-model="todo.done" 
       /> -->
-      <span>{{ todo.title }}</span>
+      <span v-show="!todo.isEdit">{{ todo.title }}</span>
+      <input 
+        type="text" 
+        v-show="todo.isEdit" 
+        :value="todo.title" 
+        @blur="handleBlur(todo, $event)"
+      />
     </label>
     <button class="btn btn-danger" @click="handleDelete(todo.id)">删除</button>
+    <button 
+      v-show="!todo.isEdit" 
+      class="btn btn-edit" 
+      @click="handleEdit(todo)">编辑
+    </button>
   </li>
 </template>
 
@@ -37,9 +48,26 @@
               // this.$bus.$emit('deleteTodo', id)
               pubsub.publish('deleteTodo', id)
             }
+          },
+          // 编辑
+          handleEdit(todo) {
+            // 判todo上面是否有isEdit字段
+            if(todo.hasOwnProperty("isEdit")) {
+              todo.isEdit = true
+            } else {
+              console.log("todo上面没有isEdit,需要添加该字段");
+              this.$set(todo, "isEdit", true)
+            }
+          },
+          // 输入框失去焦点，编辑完成 真正执行修改逻辑
+          handleBlur(todo, event) {
+            todo.isEdit = false
+            let title = event.target.value
+            if (!title.trim()) return alert("⚠️输入不能为空")
+            this.$bus.$emit("updateTodo", todo.id, title)
           }
         }
-    };
+    }
 </script>
 
 <style scoped>
