@@ -16,6 +16,7 @@
         v-show="todo.isEdit" 
         :value="todo.title" 
         @blur="handleBlur(todo, $event)"
+        ref="inputTitle"
       />
     </label>
     <button class="btn btn-danger" @click="handleDelete(todo.id)">删除</button>
@@ -58,6 +59,10 @@
               console.log("todo上面没有isEdit,需要添加该字段");
               this.$set(todo, "isEdit", true)
             }
+            // nextTick指定的函数，会在DOM更新完之后再执行
+            this.$nextTick(function() {
+              this.$refs.inputTitle.focus()
+            })
           },
           // 输入框失去焦点，编辑完成 真正执行修改逻辑
           handleBlur(todo, event) {
