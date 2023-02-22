@@ -1,31 +1,38 @@
 <!-- 具体中间Item -->
 <template>
-  <li>
-    <label>
-      <input type="checkbox" 
-        :checked="todo.done" 
-        @change="handleCheck(todo.id)"
-      />
-      <!-- 如下代码也能实现功能，但是不太推荐，因为优点违反规则，因为修改了props -->
-      <!-- <input type="checkbox" 
+  <!-- <transition name="todo" appear> 这是给li加动画 -->
+    <li>
+      <label>
+        <input
+          type="checkbox"
+          :checked="todo.done"
+          @change="handleCheck(todo.id)"
+        />
+        <!-- 如下代码也能实现功能，但是不太推荐，因为优点违反规则，因为修改了props -->
+        <!-- <input type="checkbox" 
         :v-model="todo.done" 
       /> -->
-      <span v-show="!todo.isEdit">{{ todo.title }}</span>
-      <input 
-        type="text" 
-        v-show="todo.isEdit" 
-        :value="todo.title" 
-        @blur="handleBlur(todo, $event)"
-        ref="inputTitle"
-      />
-    </label>
-    <button class="btn btn-danger" @click="handleDelete(todo.id)">删除</button>
-    <button 
-      v-show="!todo.isEdit" 
-      class="btn btn-edit" 
-      @click="handleEdit(todo)">编辑
-    </button>
-  </li>
+        <span v-show="!todo.isEdit">{{ todo.title }}</span>
+        <input
+          type="text"
+          v-show="todo.isEdit"
+          :value="todo.title"
+          @blur="handleBlur(todo, $event)"
+          ref="inputTitle"
+        />
+      </label>
+      <button class="btn btn-danger" @click="handleDelete(todo.id)">
+        删除
+      </button>
+      <button
+        v-show="!todo.isEdit"
+        class="btn btn-edit"
+        @click="handleEdit(todo)"
+      >
+        编辑
+      </button>
+    </li>
+  <!-- </transition> -->
 </template>
 
 <script>
@@ -37,8 +44,8 @@
         methods: {
           // 勾选&取消勾选
           handleCheck(id) {
-            // 通知App组件将对应的done改变状态
-            // this.checkTodo(id)
+      // 通知App组件将对应的done改变状态
+      // this.checkTodo(id)
             this.$bus.$emit("checkTodo", id)
           },
           // 删除
@@ -112,5 +119,21 @@
   li:hover button {
     display: block;
   }
+  /*  这是给li加动画
+  .todo-enter-active {
+    animation: todoAnimation 0.5s linear;
+  }
+  .todo-leave-active {
+    animation: todoAnimation 0.5s linear reverse;
+  }
+  @keyframes todoAnimation {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0px);
+    }
+  } 
+  */
 
 </style>
