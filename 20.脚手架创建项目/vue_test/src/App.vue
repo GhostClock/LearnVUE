@@ -1,18 +1,18 @@
 <template>
-  <div class="app">
-    <h1>{{ msg }}</h1>
-    <WebSite />
-    <UserInfo />
+  <div >
+    <TestAction />
+    <TestAction2 />
+    <TestAction3 />
   </div>
 </template>
 
 <script>
-  import UserInfo from "./components/UserInfo.vue"
-  import WebSite from "./components/WebSite.vue"
-
+  import TestAction from "./components/TestAction.vue"
+  import TestAction2 from "./components/TestAction2.vue"
+  import TestAction3 from "./components/TestAction3.vue"
   export default {
     name: "App",
-    components: { WebSite, UserInfo },
+    components: { TestAction, TestAction2, TestAction3 },
     data() {
       return {
         msg: "你好啊!!!",
@@ -20,10 +20,3 @@
     },
   }
 </script>
-
-<style scoped>
-  .app {
-    background-color: gray;
-    padding: 5px;
-  }
-</style>
