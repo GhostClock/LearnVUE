@@ -1,21 +1,25 @@
 <template>
   <div >
-    <TestAction />
-    <TestAction2 />
-    <TestAction3 />
+    <button @click="getStudents">获取学生信息</button>
   </div>
 </template>
 
 <script>
-  import TestAction from "./components/TestAction.vue"
-  import TestAction2 from "./components/TestAction2.vue"
-  import TestAction3 from "./components/TestAction3.vue"
+  import axios from 'axios'
   export default {
     name: "App",
-    components: { TestAction, TestAction2, TestAction3 },
-    data() {
-      return {
-        msg: "你好啊!!!",
+    methods: {
+      getStudents(){
+        // 配置了代理服务器，向代理服务请求数据
+        // 请求流程：axios -> proxyServer -> remoteServer
+        axios.get("http://localhost:8080/get").then(
+          response => {
+            console.log("请求成功了", response.data);
+          },
+          error => {
+            console.log("请求失败", error.message);
+          }
+        )
       }
     },
   }

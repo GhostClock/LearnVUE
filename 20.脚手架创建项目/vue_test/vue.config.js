@@ -10,4 +10,8 @@ module.exports = defineConfig({
     },
   },
   lintOnSave: false, // 忽略语法规则错误 
+  // 开启代理服务器
+  devServer: {
+    proxy: "https://httpbin.org", // 指向远程服务器
+  }
 })
