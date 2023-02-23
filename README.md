@@ -232,3 +232,43 @@
         3.备注：
             若有多个元素需要过度，则需要使用: ```<transition-group ```，且每个元素都要指定```key```值
 
+## 18.Vue脚手架配置代理
+1.方法一
+
+    在vue.congfig.js中添加如下配置:
+    ```
+    devServer: {
+        proxy: "https://httpbin.org", // 指向远程服务器
+    },
+    ```
+    说明：
+        1.优点：配置简单，请求资源时直接发给前端即可
+        2.缺点：不能配置多个代理，不能灵活的控制请求是否走代理
+        3.工作方式：若按照上述代理，当请求了前端的资源时，那么该请求会转发给服务器(优先匹配前端资源)
+2.方式二
+    编写vue.config.js配置代理规则：
+
+    module.exports = defineConfig({
+        devServer: {
+            proxy:{
+                '/api1': { // 匹配所有以'/api1'开头的请求路径
+                     target: "https://httpbin.org", // 代理目标的基础路径
+                     pathRewrite: {'^/api1': ''},// 真正发起请求时，去掉这个前缀
+                     changeOrigin: true,
+                },
+                '/api2': { 
+                     target: "https://httpbin.org",
+                     pathRewrite: {'^/api2': ''},
+                     changeOrigin: true,
+                }
+            }
+        }
+    })
+    /*
+    changeOrigin：默认值为ture， 用于控制请求头中的host值 默认true
+     */
+     说明：
+        1.优点：可以配置多个代理，且可以灵活的控制请求是否走代理
+        2.缺点：配置略微繁琐，请求资源时必须加前缀
+
+    

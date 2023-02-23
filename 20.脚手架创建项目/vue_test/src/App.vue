@@ -12,7 +12,7 @@
       getStudents(){
         // 配置了代理服务器，向代理服务请求数据
         // 请求流程：axios -> proxyServer -> remoteServer
-        axios.get("http://localhost:8080/get").then(
+        axios.get("http://localhost:8080/ghostclock/get").then(
           response => {
             console.log("请求成功了", response.data);
           },
