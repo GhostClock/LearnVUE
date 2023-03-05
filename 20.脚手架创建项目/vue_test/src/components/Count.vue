@@ -1,6 +1,6 @@
 <template>
   <div >
-    <h1>当前求和为：{{ sum }}</h1>
+    <h1>当前求和为：{{ $store.state.sum }} </h1>
     
     <select v-model.number="number">
       <option value="1">1</option>
@@ -21,25 +21,31 @@
     data() {
       return {
         number: 1, //用户选择的数字
-        sum: 0 // 当前的合
       }
     },
     methods: {
+      // +
       increment() {
-        this.sum += this.number
+        // Vuex：第一步
+        // this.$store.dispatch('add', this.number)
+        // 无重要处理逻辑，可以直接向mutations发送数据
+        this.$store.commit('ADD', this.number)
       },
+
+      // -
       decrement() {
-        this.sum -= this.number      
+        // this.$store.dispatch('sub', this.number)
+        this.$store.commit('SUB', this.number)
       },
+
+      // 当前求和为奇数再加
       incrementOdd() {
-        if(this.sum % 2) {
-          this.sum += this.number
-        }
+        this.$store.dispatch('addOdd', this.number)
       },
-      incrementWait() { 
-        setTimeout(() => {
-          this.sum += this.number
-        }, 500);    
+
+      // 等一等再加
+      incrementWait() {
+        this.$store.dispatch('addWait', this.number)    
       },
     },
 
