@@ -1,7 +1,7 @@
 <template>
   <div >
     <h1>当前求和为：{{ $store.state.sum }} </h1>
-    
+    <h3>放大10倍后为：{{ $store.getters.bigSum }} </h3>
     <select v-model.number="number">
       <option value="1">1</option>
       <option value="2">2</option>
@@ -48,7 +48,9 @@
         this.$store.dispatch('addWait', this.number)    
       },
     },
-
+    mounted() {
+      console.log("Count组件", this);
+    }
   }
 </script>
 

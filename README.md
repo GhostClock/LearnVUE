@@ -437,6 +437,23 @@
         ``` $store.commit('mutations中的方法名', 数据) ```
     备注：
         若没有网络请求或其他业务，组件中也可以越过actions，即不写dispatch,直接编写commit
+    5.getter的使用
+        1.概念：
+            当state中的数据需要经过加工后使用时，可以使用getter加工
+        2.在```store.js```中追加```getters```配置
+        ```
+        const getters = {
+            bigSum(state) {
+                return state.sum * 10
+            }
+        }
+
+        // 创建并导出(暴露)store
+        export default new Vuex.Store({
+            state
+        })
+        ```
+        3.组件中读取数据：``` $store.getters.bigSum ```
 
 
 

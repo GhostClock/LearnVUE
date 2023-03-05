@@ -71,11 +71,18 @@ const state = {
     // Vuex：第零部
     sum: 0 // 当前的合
 }
+// 准备state --- 用于将state中的数据进行加工
+const getters = {
+    bigSum(state) {
+        return state.sum * 10
+    }
+}
 
 // 创建并导出(暴露)store
 export default new Vuex.Store({
     actions,
     mutations,
-    state
+    state,
+    getters
 })
 
