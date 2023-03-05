@@ -349,3 +349,47 @@
                 }
             </script>
             ```
+
+## 19.Vuex
+    1.概念
+        在Vue中实现集中式状态(数据)管理的一个Vue插件，对Vue应用中多个组件的共享状态进行集中式管理(读/写),也是一种组件间通信的方式，且适用于任意组件间通信
+    2.何时使用？
+        多个组件需要共享数据时
+    3.搭建Vuex环境
+        1.创建文件：```src/store/index.js```
+            ```
+            // 引入Vue核心库
+            import Vue from 'vue'
+            // 引入Vuex
+            import Vuex from 'vuex'
+
+            // 使用Vuex
+            Vue.use(Vuex)
+
+            // 准备actions --- 用于相应组件中的动作
+            const actions = {}
+            // 准备mutations --- 用于操作数据（state）
+            const mutations = {}
+            // 准备state --- 用于存储数据
+            const state = {}
+
+            // 创建并导出(暴露)store
+            export default new Vuex.Store({
+                actions,
+                mutations,
+                state
+            })
+            ```
+        2.在```main.js```中创建vum时传入```store```配置项
+            ```
+            //引入store
+            import store from './store/index'
+
+            // 创建vm
+            new Vue({
+                el: "#app",
+                store,
+                render: h => h(App)
+            })
+            ```
+
