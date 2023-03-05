@@ -9,15 +9,15 @@
       <option value="3">3</option>
     </select>
 
-    <button @click="increment">+</button>
-    <button @click="decrement">-</button>
-    <button @click="incrementOdd">当前求和为奇数再加</button>
-    <button @click="incrementWait">等一等再加</button>
+    <button @click="increment(number)">+</button>
+    <button @click="decrement(number)">-</button>
+    <button @click="addOdd(number)">当前求和为奇数再加</button>
+    <button @click="addWait(number)">等一等再加</button>
   </div>
 </template>
 
 <script>
-  import { mapState, mapGetters } from "vuex";
+  import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
   export default {
     name: "Count",
     data() {
@@ -57,6 +57,7 @@
      
     },
     methods: {
+      /* 程序员自己写方法
       // +
       increment() {
         // Vuex：第一步
@@ -70,7 +71,14 @@
         // this.$store.dispatch('sub', this.number)
         this.$store.commit('SUB', this.number)
       },
-
+      */
+      // 借助mapMutations生成对应的方法，方法中会调用commit去联系mutations -- (对象写法)
+      ...mapMutations({increment: 'ADD', decrement: 'SUB'}),
+      
+      // 借助mapMutations生成对应的方法，方法中会调用commit去联系mutations -- (对象写法)
+      // ...mapMutations(['ADD', 'SUB']),
+      
+      /* 程序员自己写方法
       // 当前求和为奇数再加
       incrementOdd() {
         this.$store.dispatch('addOdd', this.number)
@@ -80,6 +88,14 @@
       incrementWait() {
         this.$store.dispatch('addWait', this.number)    
       },
+      */
+
+    // 借助mapActions生成对应的方法，方法中会调用dispatch去联系actions -- (对象写法)
+    // ...mapActions({incrementOdd: 'addOdd', incrementWait: 'addWait'})
+
+    // 借助mapActions生成对应的方法，方法中会调用dispatch去联系actions -- (数组写法)
+    ...mapActions(['addOdd', 'addWait'])
+
     },
     mounted() {
       console.log("Count组件", this);

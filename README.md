@@ -475,6 +475,25 @@
             ...mapGetters(['bigSum']),
         }
         ```
+        3.mapActions:用于帮助我们生成``` actions ```对话的方法，即包含``` $store.dispatch(xxx) ```的函数
+        ```
+        // 借助mapActions生成对应的方法，方法中会调用dispatch去联系actions -- (对象写法)
+        // ...mapActions({incrementOdd: 'addOdd', incrementWait: 'addWait'})
+
+        // 借助mapActions生成对应的方法，方法中会调用dispatch去联系actions -- (数组写法)
+        ...mapActions(['addOdd', 'addWait'])
+        ```
+        4.mapMutations:用于帮助我们生成``` mutations ```对话的方法，即包含``` $store.commit(xxx) ```的函数
+        ```
+        computed: {
+            // 借助mapMutations生成对应的方法，方法中会调用commit去联系mutations -- (对象写法)
+            ...mapMutations({increment: 'ADD', decrement: 'SUB'}),
+      
+            // 借助mapMutations生成对应的方法，方法中会调用commit去联系mutations -- (对象写法)
+            // ...mapMutations(['ADD', 'SUB']),
+        }
+        ```
+    备注：mapMutations与mapActions使用时，若需要传递参数，需要在模板中绑定事件时传递好参数，否则参数是事件对象。
 
 
 
