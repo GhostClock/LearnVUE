@@ -392,4 +392,54 @@
                 render: h => h(App)
             })
             ```
+    4.基本使用
+        1.初始化数据、配置```actions```,配置```mutations```,操作文件```store.js```
+        ```
+        // 引入Vue核心库
+        import Vue from 'vue'
+        // 引入Vuex
+        import Vuex from 'vuex'
+
+        // 使用Vuex
+        Vue.use(Vuex)
+
+        const actions = {
+            add(context, value) {
+                console.log("actions中的add被调用了");
+                context.commit('ADD', value)
+            },
+        }
+
+        const mutations = {
+            ADD(state, value) { // 函数一般写成大写
+                console.log("mutations中的ADD被调用了");
+                state.sum += value
+            },
+        }
+
+        // 准备state --- 用于存储数据
+        const state = {
+            // Vuex：第零部
+            sum: 0 // 当前的合
+        }
+
+        // 创建并导出(暴露)store
+        export default new Vuex.Store({
+            actions,
+            mutations,
+            state
+        })
+        ```
+        2.组件中读取vuex中的数据：
+        ``` $store.state.sum ```
+        3.组件中修改vuex中的数据：
+        ``` $store.dispatch('action中的方法名', 数据) ```  或者
+        ``` $store.commit('mutations中的方法名', 数据) ```
+    备注：
+        若没有网络请求或其他业务，组件中也可以越过actions，即不写dispatch,直接编写commit
+
+
+
+
+
 
