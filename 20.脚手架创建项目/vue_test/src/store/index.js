@@ -69,7 +69,9 @@ const mutations = {
 // 准备state --- 用于存储数据
 const state = {
     // Vuex：第零部
-    sum: 0 // 当前的合
+    sum: 0, // 当前的合
+    school: '尚硅谷',
+    subject: '前端'
 }
 // 准备state --- 用于将state中的数据进行加工
 const getters = {
