@@ -553,6 +553,45 @@
             方式二: 借助mapMutations
             ...mapMutations('countAbout', {increment: 'ADD', decrement: 'SUB'}),
             ```
+## 18.路由
+    1.理解：一个路由(route)就是一组映射关系(key-value)，多个路由需要路由器(router)进行管理
+    2.前端路由：key是路径，value是组件
+    3.基本使用
+        1.安装vue-router，命令``` npm i vue-router ```
+        2.应用插件：```Vue.use(VueRouter)```
+        3.编写router配置
+            ```
+            // 引入vuerouter
+            import VueRouter from "vue-router"
+
+            // 引入组件
+            import About from '../components/About.vue'
+            import Home from '../components/Home.vue'
+
+            // 创建并暴露一个路由器
+            export default new VueRouter({
+                routes: [
+                    {
+                        path: '/about',
+                        component: About
+                    },
+                    {
+                        path: '/home',
+                        component: Home
+                    },
+                ]
+            })
+            ```
+        4.实现切换(active-class可配置高亮样式)
+        ```
+        <router-link class="list-group-item" active-class="active" to="/about">About</router-link>
+        <router-link class="list-group-item" active-class="active" to="/home">Home</router-link>
+        ```
+        5.指定展示位置
+        ```
+        <!-- 指定组件的呈现位置 -->
+        <router-view></router-view>
+        ```
 
 
 
