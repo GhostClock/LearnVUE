@@ -625,6 +625,28 @@
         ```
         <router-link to="/home/news">News</router-link>
         ```
+    6.路由的query参数
+        1.传递参数
+        ```
+        <!-- 跳转路由并携带query参数，to的字符串写法 -->
+        <!-- <router-link :to="`/home/message/detail?id=${obj.id}&title=${obj.title}`">跳转</router-link> -->
+
+        <!-- 跳转路由并携带query参数，to的对象写法  推荐写法-->
+        <router-link :to="{
+            path: '/home/message/detail',
+            query:{
+                id: obj.id,
+                title:obj.title
+            }
+        }">
+            跳转
+        </router-link>
+        ```
+        2.接受参数
+        ```
+        this.$route.query.id
+        this.$route.query.title
+        ```
 
     
 
