@@ -32,7 +32,7 @@ export default new VueRouter({
                     children:[
                         {
                             name: "detail",
-                            path: 'detail',
+                            path: 'detail/:id/:title', // 配置params参数
                             component: Detail,
                         }
                     ]

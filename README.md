@@ -684,6 +684,46 @@
             跳转
             </router-link>
             ```
+    8.路由的params参数
+        1.配置路由，声明接受param参数
+        ```
+        {
+            path: 'message',
+            component: Message,
+            children:[
+                {
+                    name: "detail", //路由命名
+                    path: 'detail/:id/:title', //使用占位符声明接受params参数
+                    component: Detail,
+                }
+            ]
+        },
+        ```
+        2.传递参数
+        ```
+        <!-- 跳转路由并携带params参数，to的字符串写法 -->
+        <router-link :to="`/home/message/detail/${obj.id}/${obj.title}`">跳转</router-link>
+
+        <!-- 跳转路由并携带params参数，to的对象写法  推荐写法-->
+        <router-link :to="{
+            name: 'detail', // 使用params传递参数时，必须使用name，不能用path
+            params:{
+                id: obj.id,
+                title:obj.title
+            }
+        }">
+            跳转
+        </router-link>
+        ```
+        特别注意：
+            路由携带params参数时，若使用to的对象写法，则不能使用path配置项，必须使用name配置
+        3.接受参数：
+        ```
+        this.$route.params.id
+        this.$route.params.title
+        ```
+
+    
     
 
     
