@@ -647,6 +647,44 @@
         this.$route.query.id
         this.$route.query.title
         ```
+    7.命名路由
+        1.作用：可以简化路由的跳转
+        2.如何使用：
+            1.给路由命名
+            ```
+            {
+                    path: 'message',
+                    component: Message,
+                    children:[
+                        {
+                            name: "detail", //路由命名
+                            path: 'detail',
+                            component: Detail,
+                        }
+                    ]
+                },
+            ```
+            2.简化跳转：
+            ```
+            <!--简化跳转前-->
+            <router-link to='message/detail'>跳转</router-link>
+            
+            <!--简化跳转后-->
+            <router-link :to="{name:'detail'}"">跳转</router-link>
+            
+            <!--简化写法配合传递参数-->
+            <router-link
+            :to="{
+                name:'detail',
+                query: {
+                    id:123,
+                    title:'你好'
+                }
+            }">
+            跳转
+            </router-link>
+            ```
+    
 
     
 
