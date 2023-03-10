@@ -722,6 +722,32 @@
         this.$route.params.id
         this.$route.params.title
         ```
+    9.路由的props的配置
+        作用：让路由组件更方便的收到参数
+        ```
+        {
+            name: "detail",
+            path: 'detail/:id/:title', // 配置params参数
+            component: Detail,
+            // props的第一种写法，值为对象，该对象中的所有key-value都会以props的形式传递给Detail组件
+            // props: { a: 111, b: "Hello" }
+
+            // props的第二种写法，值为布尔值,若布尔值为ture，就会把该路由组件收到的所有params参数，以props的形式传递给Detail组件
+            // props: true
+
+            // props的第三种写法，值为函数
+            props($router) { // 原始写法
+                return {
+                    id: $router.query.id,
+                    title: $router.query.title,
+                }
+            },
+            // props({query:{id, title}}) { // 结构赋值
+            //     return {id, title}
+            // },
+        }
+        ```
+
 
     
     

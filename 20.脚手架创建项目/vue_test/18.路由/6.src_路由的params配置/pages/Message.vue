@@ -8,7 +8,7 @@
                 <!-- 跳转路由并携带params参数，to的对象写法  推荐写法-->
                 <router-link :to="{
                     name: 'detail', // 使用params传递参数时，必须使用name，不能用path
-                    query:{
+                    params:{
                         id: obj.id,
                         title:obj.title
                     }
