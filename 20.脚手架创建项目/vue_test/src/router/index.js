@@ -12,6 +12,7 @@ import Detail from '../pages/Detail.vue'
 
 // 创建并暴露一个路由器
 const router = new VueRouter({
+    mode: "history",//两种模式 hash和history
     routes: [
         {   
             name: 'about',
