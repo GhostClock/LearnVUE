@@ -752,6 +752,39 @@
         2.浏览器的历史有两种写入方式：分别为‘push’和‘replace’，‘push’是追加历史记录，‘replace’是替换当前记录，路由跳转时候默认为‘push’
         3.如何开启：‘replace’模式：``` <router-link replace ...>News</router-link> ```
     
+    11.编程式路由导航
+        1.作用：不借助<router-link>实现路由跳转，让路由跳转更加灵活
+        2.具体编码：
+            ```
+            //$router的两个API
+            this.$router.push({
+                name: 'detail', 
+                query:{
+                    id: obj.id,
+                    title:obj.title
+                }
+            })
+
+            this.$router.replace({
+                name: 'detail', 
+                query:{
+                    id: obj.id,
+                    title:obj.title
+                }
+            })
+
+            // 后退 back
+            this.$router.back()
+
+            // 前进 forward
+            this.$router.forward()
+
+            // 可前进，可后退 go
+            // 正数：前进几步
+            // 负数：后退几步
+            this.$router.go(3)
+            ```
+        
 
 
     
