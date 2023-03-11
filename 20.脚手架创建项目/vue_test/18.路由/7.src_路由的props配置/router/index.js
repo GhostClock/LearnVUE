@@ -32,8 +32,9 @@ export default new VueRouter({
                     children:[
                         {
                             name: "detail",
-                            path: 'detail/:id/:title', // 配置params参数
-                            component: Detail,
+                            // path: 'detail/:id/:title', // 配置params参数
+                            path: 'detail',//使用query传参时不带参数
+                            // component: Detail, 
                             // props的第一种写法，值为对象，该对象中的所有key-value都会以props的形式传递给Detail组件
                             // props: { a: 111, b: "Hello" }
 
