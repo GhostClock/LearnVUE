@@ -784,6 +784,18 @@
             // 负数：后退几步
             this.$router.go(3)
             ```
+    12.缓存路由组件
+        1.作用：让不展示的路由组件保持挂载，不被销毁
+        2.具体编码：
+            ```
+            <!-- 需要缓存得组件名 
+                需要缓存多个时： :include="['News', 'Message']"
+                不写include时：包裹的组件都缓存 
+            -->
+            <keep-alive include="News">
+                <router-view></router-view>
+            </keep-alive>
+            ```
         
 
 
