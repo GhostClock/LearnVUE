@@ -842,6 +842,21 @@
                 document.title = to.meta.title || "vue_test" // 修改网页的title
             })
             ```
+        4.独享路由守卫
+            ```
+            // 独享路由守卫
+            beforeEnter: (to, from, next) => {
+                if(to.meta.isAuth){
+                    if (localStorage.getItem('auth') === 'xyz123') {
+                        next()
+                    } else {
+                        alert("鉴权不过，不能查看相关内容!!!")
+                    }
+                } else {
+                    next()
+                }
+            }
+            ```
     
     
         
