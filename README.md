@@ -802,6 +802,47 @@
             1.```activated```路由组件被激活时触发
             2.```deactivated```路由组件失活时触发
     
+    14.路由守卫
+        1.作用：对路由进行权限控制
+        2.分类：全局守卫、独享守卫、组件内守卫
+        3.全局守卫
+            ```
+            /* 全局前置路由守卫
+                调用时机:
+                    初始化的时候被调用
+                    每次路由切换之前被调用
+            */    
+            router.beforeEach((to, from, next) => {
+                console.log('前置路由守卫', to, from);
+                // 用路径做判断
+                // if (to.path === '/home/news' || to.path == '/home/message') {
+                
+                // 用name做判断
+                // if (to.name === 'news' || to.name == 'xiaoxi') {
+                
+                // 用meta里面的数据进行判断，是否需要鉴权
+                if(to.meta.isAuth){
+                    if (localStorage.getItem('auth') === 'xyz123') {
+                        next()
+                    } else {
+                        alert("鉴权不过，不能查看相关内容!!!")
+                    }
+                } else {
+                    next()
+                }
+            })
+
+            /* 全局后置路由守卫
+                调用时机:
+                    初始化的时候被调用
+                    每次路由切换之后被调用
+            */
+            router.afterEach((to, from) => {
+                console.log('后置路由守卫', to, from);
+                document.title = to.meta.title || "vue_test" // 修改网页的title
+            })
+            ```
+    
     
         
 
