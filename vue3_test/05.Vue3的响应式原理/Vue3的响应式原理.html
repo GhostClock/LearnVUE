@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script type="text/javascript">
+        // 源数据
+        let person = {
+            name: '张三',
+            age: 18
+        }
+
+        // 模拟Vue2中实现响应式
+        //#region 
+        /*
+        let p = {}
+        Object.defineProperty(p, 'name', {
+            // 可配置的，表示可以把属性删除掉
+            configurable: true,
+            // 有人读取name时调用
+            get() {
+                return person.name
+            },
+            // 有人修改name时调用
+            set(value) {
+                console.log('有人修改了name属性，需要更新页面 !!!!');
+                person.name = value
+            }
+        })
+        Object.defineProperty(p, 'age', {
+            // 有人读取age时调用
+            get() {
+                return person.age
+            },
+            // 有人修改age时调用
+            set(value) {
+                console.log('有人修改了age属性，需要更新页面 !!!!');
+                person.age = value
+            }
+        })
+        */
+        //#endregion
+        
+        // 模拟Vue3中实现响应式 Proxy：代理 Reflect：反射
+        // 通过Proxy(代理)：拦截对象中任意属性变化，包括：属性值的读写，属性的添加，属性的删除等
+        // 通过Reflect(反射)：对源对象的属性进行操作
+        const p = new Proxy(person, {
+            // 读取
+            get(target, propName){
+                console.log(`有人读取了p身上的${propName}属性`)
+                return Reflect.get(target, propName)
+            },
+            // 修改 和 追加新属性
+            set(target, propName, value) {
+                console.log(`有人修改了p身上的${propName}属性，更新页面`)
+                Reflect.set(target, propName, value)
+            },
+            // 删除
+            deleteProperty(target, propName) {
+                console.log(`有人删除了p身上的${propName}属性，更新页面`)
+                return Reflect.defineProperty(target, propName)
+            },
+        })
+
+        let obj = {a: 1, b: 2}
+        // 通过Object.defineProperty去操作
+        /* Object.defineProperty(obj, 'c', {
+            get() {
+                return 100
+            }
+        }) 
+        Object.defineProperty(obj, 'c', {
+            get() {
+                return 100
+            }
+        })
+        */
+        
+        // 通过Reflect.defineProperty去操作 - 稍微友好一点
+        /* const x1 = Reflect.defineProperty(obj, 'c', {
+            get() {
+                return 100
+            }
+        })
+        const x2 = Reflect.defineProperty(obj, 'c', {
+            get() {
+                return 200
+            }
+        }) */
+        console.log("111111");
+
+    </script>
+</body>
+</html>
