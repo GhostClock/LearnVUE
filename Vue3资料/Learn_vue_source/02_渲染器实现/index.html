@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <div id="app"></div>
+  <script src="./renderer.js"></script>
+  <script>
+    // 1.通过h函数来创建一个vnode
+    const vnode = h('h2', { class: 'ghost', id: 'aaa'}, [
+      h('h2', null, '当前计数：100'),
+      h('button', {onClick: () => {}}, '+1')
+    ]) // vnode
+
+    // 2.通过mount函数，将cnode挂载到div#app上
+    mount(vnode, document.querySelector('#app'))
+
+    setTimeout(() => {
+      // 3、创建新的vnode
+      const vnode1 = h('h2', { class: 'ghost1', id: 'aaa'}, 
+        [ h('h2', null, '哈哈哈'),
+          h('button', {onClick: () => {}}, '-1'),
+          h('h1', null, '新的数据')
+        ]) // vnode
+      // 4、更新新结点
+      patch(vnode, vnode1)
+    }, 2000)
+
+
+  </script>
+
+</body>
+
+</html>
