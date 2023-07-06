@@ -48,6 +48,11 @@ const routes = [
     component: () => import('../pages/User.vue')
   },
   {
+    path: '/login',
+    name: 'login',
+    component: () => import('../pages/Login.vue')
+  },
+  {
     // 不存在的路由页面
     path: '/:pachMatch(.*)', // 后面加*，可以自动分隔成数组
     component: () => import('../pages/NotFound.vue')
@@ -71,6 +76,28 @@ router.addRoute(categoryRoute)
 router.addRoute('home', {
   path: 'moment',
   component: () => import('../pages/HomeMoment.vue')
+})
+
+// 全局路由导航守卫
+// to: route对象，即将跳转到的对象
+// from: route对象，从哪个对象过来的
+/**
+ * 返回值问题
+ * 1、false 不进行跳转
+ * 2、undefined或者不写返回值 进行默认跳转
+ * 3、字符串路径，跳转到对应的路径中
+ * 4、对象 类似于：router.push({path: .., query: ...})
+*/
+router.beforeEach((to, from) => {
+  console.log('to:' + to.fullPath + ', from:' + from.fullPath);
+
+  if (to.path !== '/login') {
+    const token = localStorage.getItem('token')
+    if (!token) {
+      return '/login'
+    }
+  }
+  
 })
 
 export default router
