@@ -20,7 +20,17 @@ const routes = [
     component: () => import(/* webpackChunkName:"home-chunk" */'../pages/Home.vue'),
     meta: {
 
-    }
+    },
+    children: [
+      {
+        path: 'message',
+        component: () => import('../pages/HomeMessage.vue')
+      },
+      {
+        path: 'shops',
+        component: () => import('../pages/HomeShops.vue')
+      },
+    ]
   },
   {
     path: '/about',
