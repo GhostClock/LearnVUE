@@ -22,6 +22,11 @@ const routes = [
 
     },
     children: [
+      // 二级路由重定向
+      {
+        path: '',
+        redirect: '/home/message'
+      },
       {
         path: 'message',
         component: () => import('../pages/HomeMessage.vue')
