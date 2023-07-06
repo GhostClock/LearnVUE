@@ -14,7 +14,6 @@
     <!-- <span>{{ props.navigate }}</span> -->
     <span :class="{'active': props.isActive}">{{ props.isActive }}</span>
     <span :class="{'active': props.isExactActive}">{{ props.isExactActive }}</span>
-
   </router-link>
 
   <router-link to="/about">关于</router-link>
@@ -22,7 +21,14 @@
 
   <button @click="btnClick">关于</button>
 
-  <router-view></router-view>
+  <router-view v-slot="props">
+    <transition name="gc">
+      <keep-alive>
+        <component :is="props.Component"></component>
+      </keep-alive>
+    </transition>
+  </router-view>
+
 </template>
 
 <script setup>
@@ -52,8 +58,24 @@
 
 </script>
 
-<style>
-.gc-active {
-  color: red;
-}
+<style lang="css" scoped>
+  .gc-active {
+    color: red;
+  }
+
+  .gc-enter-from,
+  .gc-leave-to {
+    opacity: 0;
+  }
+
+  .gc-enter-to,
+  .gc-leave-from {
+    opacity: 1;
+  }
+
+  .gc-enter-active,
+  .gc-leave-active {
+    transition: opacity 1s ease;
+  }
+
 </style>
