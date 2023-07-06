@@ -60,6 +60,19 @@ const router = createRouter({
   history: createWebHistory(),
 })
 
+// 动态添加一级路由
+const categoryRoute = {
+  path: '/category',
+  component: () => import('../pages/Category.vue')
+}
+router.addRoute(categoryRoute)
+
+// 动态添加二级路由
+router.addRoute('home', {
+  path: 'moment',
+  component: () => import('../pages/HomeMoment.vue')
+})
+
 export default router
 
 

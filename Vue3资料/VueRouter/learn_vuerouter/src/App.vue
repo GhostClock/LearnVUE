@@ -18,6 +18,9 @@
 
   <router-link to="/about">关于</router-link>
   <router-link :to="'/user/' + name + '/id/' + 11" >用户</router-link>
+  <template v-if="showCategory">
+    <router-link to="/category">分类</router-link>
+  </template>
 
   <button @click="btnClick">关于</button>
 
@@ -56,6 +59,7 @@
     // router.back()
   }
 
+  let showCategory = true
 </script>
 
 <style lang="css" scoped>
