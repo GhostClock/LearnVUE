@@ -1,12 +1,13 @@
 <template>
-  <router-link to="/home" active-class="gc-active">首页</router-link>
-  <router-link to="/about" active-class="gc-active">关于</router-link>
+  <router-link to="/home">首页</router-link>
+  <router-link to="/about">关于</router-link>
+  <router-link :to="'/user/' + name + '/id/' + 11" >用户</router-link>
 
   <router-view></router-view>
 </template>
 
 <script setup>
-
+  const name = 'cg'
 </script>
 
 <style>

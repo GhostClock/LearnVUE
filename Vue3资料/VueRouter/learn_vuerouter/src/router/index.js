@@ -16,11 +16,26 @@ const routes = [
   },
   {
     path: '/home',
-    component: () => import(/* webpackChunkName:"home-chunk" */'../pages/Home.vue')
+    name: 'home',
+    component: () => import(/* webpackChunkName:"home-chunk" */'../pages/Home.vue'),
+    meta: {
+
+    }
   },
   {
     path: '/about',
-    component: () => import(/* webpackChunkName: "about-chunk" */'../pages/About.vue')
+    name: 'about',
+    component: () => import('../pages/About.vue')
+  },
+  {
+    path: '/user/:username/id/:id',
+    name: 'user',
+    component: () => import('../pages/User.vue')
+  },
+  {
+    // 不存在的路由页面
+    path: '/:pachMatch(.*)', // 后面加*，可以自动分隔成数组
+    component: () => import('../pages/NotFound.vue')
   }
 ]
 
