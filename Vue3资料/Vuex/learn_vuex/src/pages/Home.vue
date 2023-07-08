@@ -1,26 +1,25 @@
 <template>
   <div>
-    <h2>{{ sConter }}</h2>
+    <h2>{{ counter }}</h2>
     <h2>{{ name }}</h2>
     <h2>{{ age }}</h2>
     <h2>{{ height }}</h2>
+    <h2>{{ n1 }}</h2>
+    <h2>{{ n2 }}</h2>
   </div>
 </template>
 
 <script setup>
-  import { computed } from 'vue';
-  import { mapState, useStore } from 'vuex';
+  import { useState } from '../hooks/useState'
 
-  const store = useStore()
-  const sConter = computed(() => store.state.counter)
-
-  const storeStateFns = mapState(['name', 'age', 'height'])
-  const storeState = {}
-  Object.keys(storeStateFns).forEach(fnKey => {
-    const fn = storeStateFns[fnKey].bind({$store: store})
-    storeState[fnKey] = computed(fn)
+  // 支持数据写法
+  const { counter, name, age, height } = useState(['counter', 'name', 'age', 'height'])
+  // 支持对象写法
+  const { n1, n2 } = useState({
+    n1: state => state.number1,
+    n2: state => state.number2,
   })
-  const { name, age, height } = storeState
+
 
 </script>
 
