@@ -1,9 +1,10 @@
 // 对state进行封装
 
-import { computed} from 'vue'
-import { mapState, useStore } from 'vuex'
+import { mapState } from 'vuex'
+import { useMapper } from "./useMapper";
 
 export function useState(mapper) {
+  /*
   // 拿到store独享
   const store = useStore()
 
@@ -17,4 +18,6 @@ export function useState(mapper) {
     storeState[fnKey] = computed(fn)
   })
   return storeState
+  */
+  return useMapper(mapper, mapState)
 }
