@@ -1,4 +1,5 @@
 import { createStore } from 'vuex';
+import axios from 'axios';
 import { INCREMENT_N } from "./mutation-typs";
 
 const store = createStore({
@@ -20,10 +21,8 @@ const store = createStore({
         {name: 'book5', price: 500, count: 1},
       ],
       discount: 0.6,
+      banners: [],
     }
-  },
-  actions() {
-
   },
   mutations: {
     increment(state) {
@@ -34,6 +33,9 @@ const store = createStore({
     },
     [INCREMENT_N](state, payload) { // 接受参数
       state.counter += payload.num
+    },
+    getBannerData(state, payload) {
+      state.banners = payload
     }
   },
   getters: {
@@ -67,7 +69,25 @@ const store = createStore({
     heightInfo(state) {
       return `height: ${state.height}`
     },
-  }
+  },
+  actions: {
+    // 放置函数
+    incrementAction(context) {
+      setTimeout(() => {
+        context.commit('increment')
+      }, 1000);
+    },
+    getHomeMultidata({commit}) {
+      return new Promise((resolve, reject) => {
+        axios.get('http://123.207.32.32:8000/home/multidata').then(response => {
+          commit('getBannerData', response.data.data.banner.list)
+          resolve('OK')
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    }
+  },
 })
 
 export default store
