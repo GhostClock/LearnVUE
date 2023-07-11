@@ -1,9 +1,9 @@
 // 对state进行封装
 
-import { mapState } from 'vuex'
+import { mapState, createNamespacedHelpers } from 'vuex'
 import { useMapper } from "./useMapper";
 
-export function useState(mapper) {
+export function useState(moduleName, mapper) {
   /*
   // 拿到store独享
   const store = useStore()
@@ -19,5 +19,9 @@ export function useState(mapper) {
   })
   return storeState
   */
-  return useMapper(mapper, mapState)
+  let mapperFn = mapState
+  if(typeof moduleName === 'string' && moduleName.length > 0) {
+    mapperFn = createNamespacedHelpers(moduleName).mapState
+  }
+  return useMapper(mapper, mapperFn)
 }
